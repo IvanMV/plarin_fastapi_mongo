@@ -1,0 +1,25 @@
+version: '1'
+
+services:
+  db:
+    build: ./db_data
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    env_file:
+      - ./.env
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+    volumes:
+      - plarin_db:/data/db
+    networks:
+      - mongo_net
+volumes:
+  plarin_db:
+    name: plarin_db
+networks:
+  mongo_net:
+    name: mongo_net
